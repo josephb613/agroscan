@@ -180,7 +180,6 @@
 //   console.log(`Serveur démarré sur le port ${port}`);
 // });
 
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const QRCode = require('qrcode');

@@ -180,12 +180,17 @@
 //   console.log(`Serveur démarré sur le port ${port}`);
 // });
 
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const QRCode = require('qrcode');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3002; // Update for deployment environment
+const port = process.env.PORT || 3002;
+
+// URL du serveur déployé
+const baseUrl = process.env.BASE_URL || 'http://localhost:3002';
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -213,7 +218,7 @@ app.post('/qrcode', async (req, res) => {
       }
     });
     const base64Data = Buffer.from(qrData).toString('base64');
-    const qrCodeURL = await QRCode.toDataURL(`https://agroscan-pckx.onrender.com/display?data=${base64Data}`);
+    const qrCodeURL = await QRCode.toDataURL(`${baseUrl}/display?data=${base64Data}`);
     res.status(200).json({ message: 'QR Code généré avec succès', qrCodeURL });
   } catch (error) {
     console.error('Erreur lors de la génération du QR Code :', error);
